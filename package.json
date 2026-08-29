@@ -1,0 +1,42 @@
+{
+  "name": "scholarship-saathi",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "tsx scripts/check-boundaries.ts && next build && tsx scripts/check-bundle.ts",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "db:push": "tsx scripts/db-push.ts",
+    "seed": "tsx scripts/seed.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:mobile": "playwright test --project=pixel5",
+    "test:a11y": "playwright test tests/e2e/a11y.spec.ts",
+    "lhci": "lhci autorun"
+  },
+  "dependencies": {
+    "next": "15.5.4",
+    "openai": "^4.104.0",
+    "postgres": "^3.4.5",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "zod": "^3.24.1",
+    "zod-to-json-schema": "^3.24.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.49.1",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "tailwindcss": "^4.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}

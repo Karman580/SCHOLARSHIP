@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme {
+  /* Core */
+  --color-ink:        #12203A;
+  --color-ink-soft:   #40506B;
+  /* Darkened from the spec's #6B7A90 (4.10:1 on paper): WCAG AA needs 4.5 for normal text. */
+  --color-slate:      #5A6779;
+  --color-paper:      #F6F8FB;
+  --color-surface:    #FFFFFF;
+  --color-line:       #DFE5EE;
+
+  /* Semantic — the only accent colours */
+  --color-confirmed:  #0E7C7B;
+  /* Darkened from the spec's #B8791A (3.41:1 on paper) for the same reason. */
+  --color-unknown:    #96610F;
+  --color-blocked:    #A3232B;
+  --color-note:       #4A5BA8;
+
+  --radius-card: 10px;
+  --radius-chip: 6px;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-plex), var(--font-plex-deva), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.5rem;
+}
+
+/* Light only, deliberately. Dark mode is out of scope and we say so on /about. */
+:root { color-scheme: light; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.125rem;      /* 18px on mobile: read under stress on cheap screens */
+  line-height: 1.55;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  body { font-size: 1rem; }
+}
+
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.measure { max-width: 68ch; }
+
+/* Underlined, not colour alone: axe flags a link inside a text block otherwise, and a
+   4.5:1 colour difference against surrounding text is not something we can guarantee. */
+a { color: var(--color-note); text-decoration: underline; }
+a.btn { text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--color-note);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  box-shadow: 0 1px 2px rgb(18 32 58 / 0.06);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 1.125rem;
+  border-radius: var(--radius-chip);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+.btn-primary { background: var(--color-confirmed); color: #fff; }
+.btn-primary:hover { filter: brightness(0.94); }
+.btn-secondary { background: var(--color-surface); border-color: var(--color-line); color: var(--color-ink); }
+.btn-secondary:hover { border-color: var(--color-slate); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.field {
+  width: 100%;
+  font: inherit;
+  color: var(--color-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-chip);
+  padding: 0.625rem 0.75rem;
+  min-height: 44px;
+}
+
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* Motion budget: three things, all off under reduced motion. */
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise 240ms ease-out both; }
+.fade { animation: rise 400ms ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; font-size: 12pt; }
+  .card { box-shadow: none; border: none; }
+  @page { margin: 18mm; }
+}
